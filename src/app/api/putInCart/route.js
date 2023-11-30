@@ -9,7 +9,7 @@ const pname = searchParams.get('pname')
 console.log(pname);
 // =================================================
 const { MongoClient } = require('mongodb');
-const url = 'mongodb://root:example@localhost:27017/';
+const url= "mongodb+srv://adammatthewmaher:Password!!@cluster0.0y41kp6.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
     
     const dbName = 'app'; // database name
