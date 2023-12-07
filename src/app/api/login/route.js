@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 export async function GET(req, res) {
 
   // Make a note we are on
@@ -28,15 +29,26 @@ export async function GET(req, res) {
   const db = client.db(dbName);
   const collection = db.collection('login'); // collection name
   const findResult = await collection.find({"username":"sample@test.com"}).toArray();
+    
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const hash = bcrypt.hashSync(pass, saltRounds);
+    
+    
   console.log('Found documents =>', findResult);
   let valid = false
-  if(findResult.length >0 ){
-  valid = true;
-  console.log("login valid")
-  } else {
-  valid = false;
-  console.log("login invalid")
-  }
+  if(findResult.length >0 && hashResult == true){
+valid = true;
+console.log("login valid")
+// save a little cookie to say we are authenticated
+console.log("Saving username and auth status")
+cookies().set('auth', true);
+cookies().set('username',email)
+} else {
+valid = false;
+console.log("login invalid")
+}
+
   //==========================================================
 
 
