@@ -20,6 +20,9 @@ export async function GET(req, res) {
   console.log(pass2);
   console.log(tel);
 
+  const bcrypt = require('bcrypt');
+  const saltRounds = 10;
+  const hash = bcrypt.hashSync(pass, saltRounds);
 
 
  
@@ -41,9 +44,10 @@ export async function GET(req, res) {
     
     const findResult = await collection.insertOne({
         username: email,
-        pass:pass,
+        pass:hash,   ///Changed for TASK 2
         pass2: pass2,
         tel: tel,
+        
     });
     let  valid = true;
 
