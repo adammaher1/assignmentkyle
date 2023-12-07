@@ -66,6 +66,13 @@ export default function Page() {
 
       //run validator
       let emailCheck = validator.validate(email);
+        
+        // Validate the password
+        let pass = data.get('pass')
+        if(pass.length ==0){
+            errorMessage += ' No password added';
+        }
+
 
       //prints status
       console.log("email status" + emailCheck);
