@@ -130,7 +130,7 @@ export default function Page() {
         console.log("Sent dob:" + dob);
 
 
-        runDBCallAsync(`api/login?email=${email}&pass=${pass}`);
+        runDBCallAsync(`api/register?email=${email}&pass=${pass}`);
       }
   }; // end handler
 
