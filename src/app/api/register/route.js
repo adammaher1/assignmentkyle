@@ -48,6 +48,6 @@ export async function GET(req, res) {
     let  valid = true;
 
   // at the end of the process we need to send something back.
-  return Response.json({ data:"Not valid" })
+  return Response.json({ data:"valid" })
 }
 
