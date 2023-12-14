@@ -17,7 +17,7 @@ import { green, purple } from '@mui/material/colors';
 import { useState, useEffect } from 'react'
 export default function Page() {
     
-fetch('/api/authCheck')
+/*fetch('api/authCheck')
 .then((res) => res.json())
 .then((data) => {
 console.log(data.status);
@@ -25,7 +25,7 @@ if(data.status!='true'){
 window.location="/"
 }
 })
-
+*/
 //
 // function for putting items into the shopping cart.
 //
