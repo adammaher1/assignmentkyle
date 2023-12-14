@@ -17,6 +17,8 @@ import { green, purple } from '@mui/material/colors';
 import { useState, useEffect } from 'react'
 export default function Page() {
     
+    
+useEffect(() => {    
 fetch('/api/authCheck')
 .then((res) => res.json())
 .then((data) => {
@@ -26,9 +28,6 @@ window.location="/"
 }
 })
 
-    
-    
-    
     
     
     
