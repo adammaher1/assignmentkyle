@@ -1,11 +1,16 @@
-import { cookies } from 'next/headers'
+import { parse } from 'cookie';
+
 export async function GET(req, res) {
-// Make a note we are on
-// the api. This goes to the console.
-console.log("checking auth")
-// get the auth record
-let record = cookies().get('auth');
-console.log(record.value);
-// at the end of the process we need to send something back.
-return Response.json({ "status":"" + record.value + ""})
+  // Make a note we are on the API. This goes to the console.
+  console.log("checking auth");
+
+  // Parse cookies from the request headers
+  const cookies = parse(req.headers.cookie || '');
+
+  // Get the 'auth' cookie
+  let record = cookies.auth;
+  console.log(record);
+
+  // At the end of the process, send something back.
+  res.json({ "status": "" + (record ? record : 'No auth cookie') + "" });
 }
