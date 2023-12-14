@@ -11,104 +11,76 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
-import { useState, useEffect } from 'react'
+import { green } from '@mui/material/colors';
+import { useState, useEffect } from 'react';
+
 export default function Page() {
-    
-    
-useEffect(() => {    
-fetch('/api/authCheck')
-.then((res) => res.json())
-.then((data) => {
-console.log(data.status);
-if(data.status!='true'){
-window.location="/"
-}
-})
+  useEffect(() => {
+    fetch('/api/authCheck')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.status);
+        if (data.status !== 'true') {
+          window.location = '/';
+        }
+      });
+  });
 
-    
-    
-    
-    
-    
-//
-// function for putting items into the shopping cart.
-//
-function putInCart(pname){
-console.log("putting in cart: " + pname)
-fetch("api/putInCart?pname="+pname);
-    
-    
-    }
-const [data, setData] = useState(null)
+  // function for putting items into the shopping cart.
+  function putInCart(pname) {
+    console.log('putting in cart: ' + pname);
+    fetch('api/putInCart?pname=' + pname);
+  }
 
-const [weather, setWeatherData] = useState(0);
+  const [data, setData] = useState(null);
+  const [weather, setWeatherData] = useState(0);
 
-
-
-
-
-
-
-
-
-useEffect(() => {
-    
+  useEffect(() => {
     fetch('api/getWeather')
-.then((res) => res.json())
-.then((weather) => {
-setWeatherData(weather)
-});
+      .then((res) => res.json())
+      .then((weather) => {
+        setWeatherData(weather);
+      });
 
-    
-    
-    
-fetch("api/getProducts")
-.then((res) => res.json())
-.then((data) => {
-setData(data)
-})
-}, [])
-if (!data) return <p>No data</p>
-    
-    if (!weather) return <p>No weather</p>
-    
-    
-    
-const theme = createTheme({
-palette: {
-secondary: {
-main: green[500],
-},
-},
-});
-return (
-<ThemeProvider theme={theme}>
-    Today's temperature: {JSON.stringify(weather.temp)}
+    fetch('api/getProducts')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
 
-<Container component="main" maxWidth="xs">
-<div style={{fontSize: '40px'}} > Dashboard</div>
-<div>
-{
-data.map((item, i) => (
-<div style={{padding: '20px'}} key={i} >
-Unique ID: {item._id}
-<br></br>
-{item.pname}
--
-{item.price}
-<br></br>
-<Button onClick={() => putInCart(item.pname)} variant="outlined"> Add to cart
-</Button>
+  if (!data) return <p>No data</p>;
+  if (!weather) return <p>No weather</p>;
 
+  const theme = createTheme({
+    palette: {
+      secondary: {
+        main: green[500],
+      },
+    },
+  });
 
-</div>
-))
-}
-</div>
-</Container>
-</ThemeProvider>
-);
+  return (
+    <ThemeProvider theme={theme}>
+      Today's temperature: {JSON.stringify(weather.temp)}
+      <Container component="main" maxWidth="xs">
+        <div style={{ fontSize: '40px' }}> Dashboard</div>
+        <div>
+          {data.map((item, i) => (
+            <div style={{ padding: '20px' }} key={i}>
+              Unique ID: {item._id}
+              <br></br>
+              {item.pname} - {item.price}
+              <br></br>
+              <Button onClick={() => putInCart(item.pname)} variant="outlined">
+                Add to cart
+              </Button>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </ThemeProvider>
+  );
 }
